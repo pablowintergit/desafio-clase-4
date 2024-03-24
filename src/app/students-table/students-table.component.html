@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover" width="100%" cellspacing="0">
+<table class="students" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -9,11 +9,14 @@
     </thead>
     <tbody>
         <ng-container *ngFor="let student of students">
-            <tr style="background-color: red;" *ngIf="student.estado!='baja'"  >
+            <tr *ngIf="student.estado!='baja'"  >
                 <td >{{student.nombre}}</td>
                 <td>{{student.apellido}}</td>
                 <td>{{student.fechaNacimiento | date:"dd-MM-yyyy"}}</td>
-                <td>{{student.condicion}}</td>
+                <td [ngClass]="{'promocionado':student.nota>=7,
+                                'regular':student.nota<7 && student.nota>4,
+                                'libre':student.nota<4
+                                }">{{getCondicion(student.nota)}}</td>
             </tr>
         </ng-container>
     </tbody>
